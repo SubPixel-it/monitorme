@@ -9,31 +9,33 @@ namespace BusinessLogic
 {
     public class AlarmLogLogic
     {
-        AlarmLogService alarmLogService = new AlarmLogService();
-        
-        public Models.AlarmLog Add(
+        private readonly AlarmLogService alarmLogService = new AlarmLogService();
+
+        public AlarmLog Add(
             string monitorId)
         {
-            Models.AlarmLog alarmLog = new AlarmLog()
+            AlarmLog alarmLog = new AlarmLog
             {
                 MonitorId = monitorId,
                 Timestamp = DateTime.UtcNow
             };
-            
+
             return alarmLogService.Add(alarmLog);
         }
 
-        public Models.AlarmLog Get(string id)
+        public AlarmLog Get(string id)
         {
-            Expression<Func<Models.AlarmLog, bool>> whereClause = x => x.Id == id;
+            Expression<Func<AlarmLog, bool>> whereClause = x => x.Id == id;
             return alarmLogService.Get(whereClause).SingleOrDefault();
         }
-        public List<Models.AlarmLog> GetByMonitor(string monitorId)
+
+        public List<AlarmLog> GetByMonitor(string monitorId)
         {
-            Expression<Func<Models.AlarmLog, bool>> whereClause = x => x.MonitorId == monitorId;
+            Expression<Func<AlarmLog, bool>> whereClause = x => x.MonitorId == monitorId;
             return alarmLogService.Get(whereClause);
         }
-        public List<Models.AlarmLog> Get(Expression<Func<Models.AlarmLog, bool>> whereClause)
+
+        public List<AlarmLog> Get(Expression<Func<AlarmLog, bool>> whereClause)
         {
             return alarmLogService.Get(whereClause);
         }

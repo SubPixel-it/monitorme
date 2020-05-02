@@ -9,56 +9,60 @@ namespace BusinessLogic
 {
     public class MonitorGroupLogic
     {
-        MonitorGroupService monitorGroupService = new MonitorGroupService();
-        
-        public Models.MonitorGroup Add(
+        private readonly MonitorGroupService monitorGroupService = new MonitorGroupService();
+
+        public MonitorGroup Add(
             string name,
             Monitor.State status)
         {
-            Models.MonitorGroup monitorGroup = new MonitorGroup()
+            MonitorGroup monitorGroup = new MonitorGroup
             {
-                Name =  name,
+                Name = name,
                 Status = status
             };
-            
+
             return monitorGroupService.Add(monitorGroup);
         }
-        public Models.MonitorGroup Update(
+
+        public MonitorGroup Update(
             string monitorGroupId,
             string name,
             Monitor.State status)
         {
-            Models.MonitorGroup monitorGroup = new MonitorGroup()
+            MonitorGroup monitorGroup = new MonitorGroup
             {
                 MonitorGroupId = monitorGroupId,
-                Name =  name,
+                Name = name,
                 Status = status
             };
-            
+
             return monitorGroupService.Update(monitorGroup);
         }
+
         public bool Remove(
             string monitorGroupId)
         {
-            Models.MonitorGroup monitorGroup = new MonitorGroup()
+            MonitorGroup monitorGroup = new MonitorGroup
             {
                 MonitorGroupId = monitorGroupId
             };
-            
+
             return monitorGroupService.Remove(monitorGroup);
         }
-        
-        public Models.MonitorGroup Get(string monitorGroupId)
+
+        public MonitorGroup Get(string monitorGroupId)
         {
-            Expression<Func<Models.MonitorGroup, bool>> whereClause = x => x.MonitorGroupId == monitorGroupId;
+            Expression<Func<MonitorGroup, bool>> whereClause = x => x.MonitorGroupId == monitorGroupId;
             return Get(whereClause).SingleOrDefault();
         }
-        public Models.MonitorGroup Get(Monitor.State status)
+
+        public MonitorGroup Get(Monitor.State status)
         {
-            Expression<Func<Models.MonitorGroup, bool>> whereClause = x => x.Status == status;
+            Expression<Func<MonitorGroup, bool>> whereClause = x => x.Status == status;
             return Get(whereClause).SingleOrDefault();
         }
-        public List<Models.MonitorGroup> Get(Expression<Func<Models.MonitorGroup, bool>> whereClause)
+
+        public List<MonitorGroup> Get(Expression<Func<MonitorGroup, bool>> whereClause)
         {
             return monitorGroupService.Get(whereClause);
         }

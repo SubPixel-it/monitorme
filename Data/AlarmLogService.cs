@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Models;
 
 namespace Data
 {
     public class AlarmLogService
     {
-        public Models.AlarmLog Add(Models.AlarmLog alarm)
+        public AlarmLog Add(AlarmLog alarm)
         {
             using (MMContext mmc = new MMContext())
             {
@@ -21,17 +22,14 @@ namespace Data
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    if (ex.InnerException != null)
-                    {
-                        Console.WriteLine(ex.InnerException.Message);
-                    }
+                    if (ex.InnerException != null) Console.WriteLine(ex.InnerException.Message);
 
                     return null;
                 }
             }
         }
 
-        public List<Models.AlarmLog> Get(Expression<Func<Models.AlarmLog, bool>> whereClause)
+        public List<AlarmLog> Get(Expression<Func<AlarmLog, bool>> whereClause)
         {
             using (MMContext mmc = new MMContext())
             {

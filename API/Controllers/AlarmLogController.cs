@@ -6,14 +6,14 @@ namespace API.Controllers
     [Route("{controller}")]
     public class AlarmLogController : Controller
     {
-        AlarmLogLogic alarmLogLogic = new AlarmLogLogic();
-        
+        private readonly AlarmLogLogic alarmLogLogic = new AlarmLogLogic();
+
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Json(alarmLogLogic.Get(whereClause:null));
+            return Json(alarmLogLogic.Get(whereClause: null));
         }
-        
+
         [HttpGet]
         public IActionResult Get(string monitorId)
         {

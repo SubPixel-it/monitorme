@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Models;
 
 namespace Data
 {
     public class MonitorService
     {
-        public Models.Monitor Add(Models.Monitor monitor)
+        public Monitor Add(Monitor monitor)
         {
             using (MMContext mmc = new MMContext())
             {
@@ -21,26 +22,20 @@ namespace Data
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    if (ex.InnerException != null)
-                    {
-                        Console.WriteLine(ex.InnerException.Message);
-                    }
+                    if (ex.InnerException != null) Console.WriteLine(ex.InnerException.Message);
                     return null;
                 }
             }
         }
-        
-        public Models.Monitor Update(Models.Monitor monitor)
+
+        public Monitor Update(Monitor monitor)
         {
             using (MMContext mmc = new MMContext())
             {
-                Models.Monitor exists = mmc.Monitors
+                Monitor exists = mmc.Monitors
                     .SingleOrDefault(x => x.MonitorId == monitor.MonitorId);
-                if (exists == null)
-                {
-                    return null;
-                }
-                
+                if (exists == null) return null;
+
                 try
                 {
                     exists.Name = monitor.Name;
@@ -48,33 +43,27 @@ namespace Data
                     exists.MonitorGroupId = monitor.MonitorGroupId;
                     exists.MaxInterval = monitor.MaxInterval;
                     exists.LastBeat = monitor.LastBeat;
-                    
+
                     mmc.SaveChanges();
                     return exists;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    if (ex.InnerException != null)
-                    {
-                        Console.WriteLine(ex.InnerException.Message);
-                    }
+                    if (ex.InnerException != null) Console.WriteLine(ex.InnerException.Message);
                     return null;
                 }
             }
         }
-        
-        public bool Remove(Models.Monitor monitor)
+
+        public bool Remove(Monitor monitor)
         {
             using (MMContext mmc = new MMContext())
             {
-                Models.Monitor exists = mmc.Monitors
+                Monitor exists = mmc.Monitors
                     .SingleOrDefault(x => x.MonitorId == monitor.MonitorId);
-                if (exists == null)
-                {
-                    return false;
-                }
-                
+                if (exists == null) return false;
+
                 try
                 {
                     mmc.Remove(exists);
@@ -84,16 +73,13 @@ namespace Data
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    if (ex.InnerException != null)
-                    {
-                        Console.WriteLine(ex.InnerException.Message);
-                    }
+                    if (ex.InnerException != null) Console.WriteLine(ex.InnerException.Message);
                     return false;
                 }
             }
         }
-        
-        public List<Models.Monitor> Get(Expression<Func<Models.Monitor, bool>> whereClause)
+
+        public List<Monitor> Get(Expression<Func<Monitor, bool>> whereClause)
         {
             using (MMContext mmc = new MMContext())
             {

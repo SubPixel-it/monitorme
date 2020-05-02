@@ -9,79 +9,82 @@ namespace BusinessLogic
 {
     public class MonitorLogic
     {
-        MonitorService monitorService = new MonitorService();
-        
-        public Models.Monitor Add(
+        private readonly MonitorService monitorService = new MonitorService();
+
+        public Monitor Add(
             string name,
             int maxIntervalInSeconds,
             string monitorGroupId)
         {
-            Models.Monitor monitor = new Monitor()
+            Monitor monitor = new Monitor
             {
-                Name =  name,
+                Name = name,
                 Status = Monitor.State.Deactivated,
                 MonitorId = monitorGroupId,
-                MaxInterval = new TimeSpan(0,0,0,maxIntervalInSeconds),
+                MaxInterval = new TimeSpan(0, 0, 0, maxIntervalInSeconds),
                 LastBeat = DateTime.UtcNow
             };
-            
+
             return monitorService.Add(monitor);
         }
-        public Models.Monitor Update(
+
+        public Monitor Update(
             string monitorId,
             string name,
             int maxIntervalInSeconds,
             string monitorGroupId,
             Monitor.State status)
         {
-            Models.Monitor monitor = Get(monitorId);
+            Monitor monitor = Get(monitorId);
 
             monitor.Name = name;
             monitor.Status = status;
             monitor.MonitorId = monitorGroupId;
             monitor.MaxInterval = new TimeSpan(0, 0, 0, maxIntervalInSeconds);
-            
+
             return monitorService.Update(monitor);
         }
+
         public bool Remove(
             string monitorId)
         {
-            Models.Monitor monitor = new Monitor()
+            Monitor monitor = new Monitor
             {
                 MonitorId = monitorId
             };
-            
+
             return monitorService.Remove(monitor);
         }
-        public Models.Monitor HeartBeat(
+
+        public Monitor HeartBeat(
             string monitorId)
         {
-            Models.Monitor monitor = Get(monitorId);
-            if (monitor == null)
-            {
-                return null;
-            }
+            Monitor monitor = Get(monitorId);
+            if (monitor == null) return null;
             monitor.LastBeat = DateTime.UtcNow;
-            
+
             return monitorService.Update(monitor);
         }
-        
-        public Models.Monitor Get(string monitorId)
+
+        public Monitor Get(string monitorId)
         {
-            Expression<Func<Models.Monitor, bool>> whereClause = x => x.MonitorId == monitorId;
+            Expression<Func<Monitor, bool>> whereClause = x => x.MonitorId == monitorId;
             return Get(whereClause).SingleOrDefault();
         }
-        public List<Models.Monitor> GetByGroup(string monitorGroupId)
+
+        public List<Monitor> GetByGroup(string monitorGroupId)
         {
-            Expression<Func<Models.Monitor, bool>> whereClause = x => x.MonitorGroupId == monitorGroupId;
+            Expression<Func<Monitor, bool>> whereClause = x => x.MonitorGroupId == monitorGroupId;
             return Get(whereClause);
         }
-        public Models.Monitor Get(Monitor.State status)
+
+        public Monitor Get(Monitor.State status)
         {
-            Expression<Func<Models.Monitor, bool>> whereClause = x => x.Status == status;
+            Expression<Func<Monitor, bool>> whereClause = x => x.Status == status;
             return Get(whereClause).SingleOrDefault();
         }
-        public List<Models.Monitor> Get(Expression<Func<Models.Monitor, bool>> whereClause)
+
+        public List<Monitor> Get(Expression<Func<Monitor, bool>> whereClause)
         {
             return monitorService.Get(whereClause);
         }

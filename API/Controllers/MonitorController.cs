@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessLogic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [Route("{controller}")]
     public class MonitorController : Controller
     {
-        // GET
-        public IActionResult Index()
+        private readonly MonitorLogic monitorLogic = new MonitorLogic();
+
+        [HttpGet]
+        public IActionResult GetAll()
         {
-            return Ok("Monitor API Controller");
+            return Json(monitorLogic.Get(whereClause: null));
         }
     }
 }

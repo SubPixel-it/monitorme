@@ -13,10 +13,12 @@ namespace Models
             Deactivated = 0,
             Active = 1
         }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string MonitorId { get; set; }
-        [MaxLength(30)]
-        public string Name { get; set; }
+
+        [MaxLength(30)] public string Name { get; set; }
+
         public State Status { get; set; }
         public TimeSpan MaxInterval { get; set; }
         public DateTime LastBeat { get; set; }

@@ -14,8 +14,10 @@ namespace Models
             Error = 3,
             Critical = 4
         }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
+
         public DateTime Timestamp { get; set; }
         public Severities Severity { get; set; }
         public string Message { get; set; }

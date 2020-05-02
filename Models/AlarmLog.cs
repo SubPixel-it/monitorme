@@ -8,6 +8,7 @@ namespace Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
+
         public DateTime Timestamp { get; set; }
         public string MonitorId { get; set; }
         public virtual Monitor Monitor { get; set; }
