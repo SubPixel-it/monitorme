@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
 {
-    [Table("dbo.MonitorGroup")]
+    [Table("dbo.Monitor")]
     public class Monitor
     {
         public enum State

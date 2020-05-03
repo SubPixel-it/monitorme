@@ -6,7 +6,7 @@ namespace Data
     // ReSharper disable once InconsistentNaming
     public class MMContext : DbContext
     {
-        private static string ConnectionString = @"Server=.;Database=MonitorMe;Trusted_Connection=True";
+        private static string connectionString = @"Server=.;Database=MonitorMe;Trusted_Connection=False;user id=-;password=-";
 
         public MMContext()
         {
@@ -14,7 +14,7 @@ namespace Data
 
         public MMContext(string connectionString)
         {
-            ConnectionString = connectionString;
+            connectionString = connectionString;
         }
 
         public MMContext(DbContextOptions<MMContext> options)
@@ -29,7 +29,7 @@ namespace Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(ConnectionString);
+            optionsBuilder.UseSqlServer(connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
