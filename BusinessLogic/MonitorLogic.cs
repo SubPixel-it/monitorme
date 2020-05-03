@@ -20,7 +20,7 @@ namespace BusinessLogic
             {
                 Name = name,
                 Status = Monitor.State.Deactivated,
-                MonitorId = monitorGroupId,
+                MonitorGroupId = monitorGroupId,
                 MaxInterval = new TimeSpan(0, 0, 0, maxIntervalInSeconds),
                 LastBeat = DateTime.UtcNow
             };
@@ -39,7 +39,7 @@ namespace BusinessLogic
 
             monitor.Name = name;
             monitor.Status = status;
-            monitor.MonitorId = monitorGroupId;
+            monitor.MonitorGroupId = monitorGroupId;
             monitor.MaxInterval = new TimeSpan(0, 0, 0, maxIntervalInSeconds);
 
             return monitorService.Update(monitor);
