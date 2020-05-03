@@ -28,6 +28,11 @@ namespace BusinessLogic
             return monitorService.Add(monitor);
         }
 
+        public Monitor Update(Monitor monitor)
+        {
+            return monitorService.Update(monitor);
+        }
+        
         public Monitor Update(
             string monitorId,
             string name,
@@ -78,10 +83,10 @@ namespace BusinessLogic
             return Get(whereClause);
         }
 
-        public Monitor Get(Monitor.State status)
+        public List<Monitor> Get(Monitor.State status)
         {
             Expression<Func<Monitor, bool>> whereClause = x => x.Status == status;
-            return Get(whereClause).SingleOrDefault();
+            return Get(whereClause);
         }
 
         public List<Monitor> Get(Expression<Func<Monitor, bool>> whereClause)

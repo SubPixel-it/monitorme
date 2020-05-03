@@ -110,5 +110,18 @@ namespace API.Controllers
 
             return Json(monitor);
         }
+        
+        [HttpPatch]
+        [Route("beat/{monitorId}")]
+        public IActionResult Beat(string monitorId)
+        {
+            Models.Monitor monitor = monitorLogic.HeartBeat(monitorId);
+            if (monitor == null)
+            {
+                return BadRequest("Something went wrong :(");
+            }
+
+            return Json(monitor);
+        }
     }
 }
