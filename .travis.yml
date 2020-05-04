@@ -1,2 +1,10 @@
 language: csharp
-solution: MonitorMe.sln
+dist: trusty
+mono: none
+dotnet: 3.1.201
+
+install:
+- dotnet restore
+
+script:
+- dotnet build
